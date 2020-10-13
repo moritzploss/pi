@@ -1,11 +1,12 @@
-# Pi for all
+# Raspberry Pi Kubernetes Cluster
 
 ## Todo 
-- ~~install raspian~~
+- ~~install Ubuntu Server~~
 - ~~wifi configs~~ 
-- ~~ssh in~~ 
+- ~~ssh in~~
 - ~~setup docker~~
-- create postgres kube cluster thingie
+- install minkube
+- create postgres cluster
 - connect to it remotely with pgadmin or something of the sorts
 
 ## What you need
@@ -32,7 +33,7 @@ allow you to connect to the Pi using SSH later:
 Open `which file was that again?` and find the following lines. Uncomment them,
 then replace `SSID-NAME-HERE` and `PASSWORD-HERE` with your wifi network's
 name and password. Make sure to surround both the name and password with
-quotes `""`.
+quotes `"..."`.
 
     wifis:
     wlan0:
@@ -60,6 +61,17 @@ Then access your Pi via `ssh`. The user and password are `ubuntu`:
 
 Follow the password reset dialog, then exit and reconnect. Done!
 
+## Disable Swap
+
+To prolong the lifetime of your SD card, disable memory swap (to avoid
+excessive writes to the drive).
+
+    sudo sed -i '/ swap / s/^/#/' /etc/fstab
+
+## Assign Static IP Address
+
+## Add SSH Key (Optional)
+
 ## Install Docker
 
 Follow [these instructions](https://phoenixnap.com/kb/install-docker-on-ubuntu-20-04)
@@ -76,6 +88,11 @@ To avoid having to run Docker with `sudo`:
 To check that everything works as expected:
 
     docker run hello-world
+
+## Install Minikube
+
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 ## Useful Links
 - [image loader for raspberry pi](https://www.raspberrypi.org/downloads/)
